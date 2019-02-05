@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpayWebBuilder {
+public class UpayFelmoWebBuilder {
     private static UpayFelmoListener listener;
     private Context context;
     private static String requestURL;
@@ -27,7 +27,7 @@ public class UpayWebBuilder {
      *
      * @param  context
      **/
-    public UpayWebBuilder(Context context) {
+    public UpayFelmoWebBuilder(Context context) {
         this.context = context;
     }
 

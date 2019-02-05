@@ -4,23 +4,20 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebSettings;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.piashsarker.upay_felmo_lib.R;
 import com.piashsarker.www.easy_utils_lib.Utils;
 import com.upay.upay_felmo_lib.Utils.AppUtils;
 import com.upay.upay_felmo_lib.Utils.Constant;
-import com.upay.upay_felmo_lib.builder.UpayWebBuilder;
+import com.upay.upay_felmo_lib.builder.UpayFelmoWebBuilder;
 import com.upay.upay_felmo_lib.model.LoginResponse;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import im.delight.android.webview.AdvancedWebView;
-import okhttp3.internal.Util;
 
 
 public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Listener {
@@ -65,11 +62,11 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
     public void onPageStarted(String url, Bitmap favicon) {
         Utils.showProgressDialog(this);
         if (url.contains(Constant.SUCCESS_URL)) {
-            if (UpayWebBuilder.getUpayListener() != null) {
-                //  UpayWebBuilder.getUpayListener().onSuccess(processSuccessValues(url));
+            if (UpayFelmoWebBuilder.getUpayListener() != null) {
+                //  UpayFelmoWebBuilder.getUpayListener().onSuccess(processSuccessValues(url));
                 try {
                     URL successURL = new URL(url);
-                    UpayWebBuilder.getUpayListener().onSuccess(AppUtils.getResponse(successURL));
+                    UpayFelmoWebBuilder.getUpayListener().onSuccess(AppUtils.getResponse(successURL));
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
@@ -78,10 +75,10 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
             finish();
         }
         if (url.contains(Constant.CANCEL_URL)) {
-            if (UpayWebBuilder.getUpayListener() != null) {
+            if (UpayFelmoWebBuilder.getUpayListener() != null) {
                 try {
                     URL cancelURL = new URL(url);
-                    UpayWebBuilder.getUpayListener().onFailure(AppUtils.splitQuery(cancelURL));
+                    UpayFelmoWebBuilder.getUpayListener().onFailure(AppUtils.splitQuery(cancelURL));
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
