@@ -1,6 +1,7 @@
 package com.upay.upay_felmo_lib.model;
 
 public final class PurchaseRequestInfo {
+
     private String authToken;
     private int amount;
 

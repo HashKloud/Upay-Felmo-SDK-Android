@@ -10,6 +10,6 @@
             android:name="com.upay.upay_felmo_lib.activity.UpayFelmoWebActivity">
 
         </activity>
-    </application>
+    </application>w
 
 </manifest>

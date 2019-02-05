@@ -3,7 +3,6 @@ package com.upay.upay_felmo_lib.builder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -71,8 +70,8 @@ public class UpayWebBuilder {
     }
 
     public void sendRemittance(UserAuth userAuth, UpayFelmoListener upayFelmoListener, boolean sandBoxMode){
-            authenticateUser(userAuth, upayFelmoListener);
-            setRequestURL(sandBoxMode);
+        setRequestURL(sandBoxMode);
+        authenticateUser(userAuth, upayFelmoListener);
     }
 
     private void startWebViewActivity(LoginResponse userInfo) {

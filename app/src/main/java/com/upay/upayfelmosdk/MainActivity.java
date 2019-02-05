@@ -13,7 +13,6 @@ import com.upay.upay_felmo_lib.model.UserAuth;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements UpayFelmoListener {
-    private static final String TOKEN = "b464ff4e3a2b1019ad4f3bbb625727a5cf279148c7c24a754c7ddcc9a6b3c1ae8ce9e9d58d138205955bb57535792f495645858964fd406c727b6c8d67c7e4ef ";
 
 
 
@@ -45,10 +44,17 @@ public class MainActivity extends AppCompatActivity implements UpayFelmoListener
 
     @Override
     public void onSuccess(HashMap<String, String> values) {
+        /** Return a HashMap of String KEY And Value Pair**/
+        if(values != null){
+            setValueToTextView(values);
+        }
     }
 
     @Override
     public void onFailure(HashMap<String, String> values) {
-
+        /** Return a HashMap of String KEY And Value Pair**/
+        if(values != null){
+            setValueToTextView(values);
+        }
     }
 }

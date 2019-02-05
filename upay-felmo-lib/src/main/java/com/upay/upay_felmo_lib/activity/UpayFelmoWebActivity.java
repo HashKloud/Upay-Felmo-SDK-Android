@@ -48,7 +48,7 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
         settings.setDomStorageEnabled(true);
         if(loginResponse.getData().getReDirectUrl() != null && Utils.isValidURL(loginResponse.getData().getReDirectUrl())){
             String params = "signature="+loginResponse.getData().getSignature()+"&&"+"client="+loginResponse.getData().getClient();
-            mWebView.loadUrl("http://192.168.1.11:8080/#/my-remittance"+"?"+params);
+            mWebView.loadUrl("http://192.168.0.136:8080/#/my-remittance"+"?"+params);
             Log.d("Params", params);
         }else{
             Toast.makeText(this, "Something Went Wrong, Please try again later.", Toast.LENGTH_SHORT).show();
