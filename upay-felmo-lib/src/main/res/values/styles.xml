@@ -4,7 +4,7 @@
     </style>
 
     <style name="AppTheme.NoActionbar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#D81921</item>
-        <item name="colorPrimaryDark">#D81921</item>
+        <item name="colorPrimary">#2196F3</item>
+        <item name="colorPrimaryDark">#3A3A3A</item>
     </style>
 </resources>

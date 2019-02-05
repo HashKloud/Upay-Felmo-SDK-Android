@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.piashsarker.upay_felmo_lib.R;
@@ -18,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import im.delight.android.webview.AdvancedWebView;
+import okhttp3.internal.Util;
 
 
 public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Listener {
@@ -48,7 +51,7 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
         settings.setDomStorageEnabled(true);
         if(loginResponse.getData().getReDirectUrl() != null && Utils.isValidURL(loginResponse.getData().getReDirectUrl())){
             String params = "signature="+loginResponse.getData().getSignature()+"&&"+"client="+loginResponse.getData().getClient();
-            mWebView.loadUrl("http://192.168.0.136:8080/#/my-remittance"+"?"+params);
+            mWebView.loadUrl("https://59b5ec41.ngrok.io/#/my-remittance"+"?"+params);
             Log.d("Params", params);
         }else{
             Toast.makeText(this, "Something Went Wrong, Please try again later.", Toast.LENGTH_SHORT).show();
@@ -60,16 +63,18 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
 
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
+        Utils.showProgressDialog(this);
         if (url.contains(Constant.SUCCESS_URL)) {
             if (UpayWebBuilder.getUpayListener() != null) {
                 //  UpayWebBuilder.getUpayListener().onSuccess(processSuccessValues(url));
                 try {
                     URL successURL = new URL(url);
-                    UpayWebBuilder.getUpayListener().onSuccess(AppUtils.splitQuery(successURL));
+                    UpayWebBuilder.getUpayListener().onSuccess(AppUtils.getResponse(successURL));
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
             }
+            Utils.hideProgressDialog();
             finish();
         }
         if (url.contains(Constant.CANCEL_URL)) {
@@ -80,7 +85,7 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
-
+                Utils.hideProgressDialog();
                 finish();
             }
         }
@@ -88,11 +93,13 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
 
     @Override
     public void onPageFinished(String url) {
+        Utils.hideProgressDialog();
 
     }
 
     @Override
     public void onPageError(int errorCode, String description, String failingUrl) {
+        Utils.hideProgressDialog();
     }
 
     @Override
@@ -104,5 +111,6 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
     public void onExternalPageRequest(String url) {
 
     }
+
 }
 

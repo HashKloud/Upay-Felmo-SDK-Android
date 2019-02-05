@@ -1,6 +1,4 @@
 package com.upay.upay_felmo_lib.builder;
-
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -37,17 +35,13 @@ public class UpayWebBuilder {
     private final  void authenticateUser(UserAuth userAuth, final UpayFelmoListener upayListener){
 
         if(Utils.isNetworkAvailable(context)){
-            final ProgressDialog progressDialog = new ProgressDialog(context);
-            progressDialog.setTitle("Wait");
-            progressDialog.setMessage("Loading");
-            progressDialog.show();
-
+            Utils.showProgressDialog(context);
             ApiService apiService = RetroClient.getApiService() ;
             Call<LoginResponse> call = apiService.authUser(userAuth.getClientKey(), userAuth.getCountryCode(), userAuth.getSingnature());
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    progressDialog.dismiss();
+                    Utils.hideProgressDialog();
                     if(response.body() != null){
                         setUpayListener(upayListener);
                         startWebViewActivity(response.body());
@@ -57,7 +51,7 @@ public class UpayWebBuilder {
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    progressDialog.dismiss();
+                    Utils.hideProgressDialog();
                     Log.d("Login",t.getMessage());
                     Toast.makeText(context, "Something went wrong, Try again later.", Toast.LENGTH_SHORT).show();
                 }
