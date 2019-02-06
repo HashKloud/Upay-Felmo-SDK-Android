@@ -1,12 +1,7 @@
 package com.upay.upay_felmo_lib.Utils;
-
 import android.util.Base64;
-import android.util.Log;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;

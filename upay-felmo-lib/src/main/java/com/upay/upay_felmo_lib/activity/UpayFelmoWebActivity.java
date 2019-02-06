@@ -3,8 +3,9 @@ package com.upay.upay_felmo_lib.activity;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.piashsarker.upay_felmo_lib.R;
@@ -22,19 +23,18 @@ import im.delight.android.webview.AdvancedWebView;
 
 public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Listener {
     private AdvancedWebView mWebView;
+    private ProgressBar progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upay_felmo_web);
+        progressBar = findViewById(R.id.progress_bar);
         if(getIntent().getSerializableExtra("userInfo") != null){
             LoginResponse loginResponse = (LoginResponse) getIntent().getSerializableExtra("userInfo");
             openWebView(loginResponse);
         }
-
-
-
     }
 
 
@@ -47,9 +47,8 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
         // Enable DOM storage
         settings.setDomStorageEnabled(true);
         if(loginResponse.getData().getReDirectUrl() != null && Utils.isValidURL(loginResponse.getData().getReDirectUrl())){
-            String params = "signature="+loginResponse.getData().getSignature()+"&&"+"client="+loginResponse.getData().getClient();
-            mWebView.loadUrl("https://59b5ec41.ngrok.io/#/my-remittance"+"?"+params);
-            Log.d("Params", params);
+            String params = Constant.KEY_SIGNATURE+"="+loginResponse.getData().getSignature()+"&&"+Constant.KEY_CLIENT+"="+loginResponse.getData().getClient();
+            mWebView.loadUrl(loginResponse.getData().getReDirectUrl()+"?"+params);
         }else{
             Toast.makeText(this, "Something Went Wrong, Please try again later.", Toast.LENGTH_SHORT).show();
             finish();
@@ -60,10 +59,9 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
 
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
-        Utils.showProgressDialog(this);
+        this.progressBar.setVisibility(View.VISIBLE);
         if (url.contains(Constant.SUCCESS_URL)) {
             if (UpayFelmoWebBuilder.getUpayListener() != null) {
-                //  UpayFelmoWebBuilder.getUpayListener().onSuccess(processSuccessValues(url));
                 try {
                     URL successURL = new URL(url);
                     UpayFelmoWebBuilder.getUpayListener().onSuccess(AppUtils.getResponse(successURL));
@@ -71,7 +69,7 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
                     e.printStackTrace();
                 }
             }
-            Utils.hideProgressDialog();
+
             finish();
         }
         if (url.contains(Constant.CANCEL_URL)) {
@@ -82,7 +80,6 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
-                Utils.hideProgressDialog();
                 finish();
             }
         }
@@ -90,13 +87,13 @@ public class UpayFelmoWebActivity extends Activity implements AdvancedWebView.Li
 
     @Override
     public void onPageFinished(String url) {
-        Utils.hideProgressDialog();
-
+        this.progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onPageError(int errorCode, String description, String failingUrl) {
-        Utils.hideProgressDialog();
+        Toast.makeText(this,"Somethings went wrong, Try again later.", Toast.LENGTH_LONG).show();
+        finish();
     }
 
     @Override

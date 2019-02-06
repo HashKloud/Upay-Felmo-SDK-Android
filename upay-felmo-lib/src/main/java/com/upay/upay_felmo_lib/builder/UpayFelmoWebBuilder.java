@@ -70,7 +70,6 @@ public class UpayFelmoWebBuilder {
 
     private void startWebViewActivity(LoginResponse userInfo) {
         if (listener != null) {
-            /** Start Web View Here **/
             Intent intent = new Intent(context, UpayFelmoWebActivity.class);
             intent.putExtra("userInfo", userInfo);
             context.startActivity(intent);

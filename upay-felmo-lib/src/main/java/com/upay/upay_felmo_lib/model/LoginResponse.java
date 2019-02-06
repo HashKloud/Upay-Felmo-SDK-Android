@@ -1,5 +1,7 @@
 package com.upay.upay_felmo_lib.model;
 
+import android.util.Base64;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -59,7 +61,8 @@ public class LoginResponse implements Serializable {
         }
 
         public String getReDirectUrl() {
-            return reDirectUrl;
+            /** Decoding Base64 data into string**/
+            return  new String(Base64.decode(reDirectUrl, Base64.DEFAULT));
         }
 
         public void setReDirectUrl(String reDirectUrl) {
