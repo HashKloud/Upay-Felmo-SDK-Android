@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_main_fragment">
+    <fragment
+        android:id="@+id/nav_main_fragment"
+        android:name="com.upay.upayfelmoremit.main.MainFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_remit_web_host"
+            app:destination="@id/nav_remit_web_host_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_remit_web_host_fragment"
+        android:name="com.upay.upayfelmoremit.main.RemitWebHostFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_remit_web">
+        <argument
+            android:name="userInfo"
+            app:argType="java.io.Serializable" />
+        <action
+            android:id="@+id/action_remit_web_host_to_remit_status"
+            app:destination="@id/nav_remit_status_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_remit_status_fragment"
+        android:name="com.upay.upayfelmoremit.main.RemitStatusFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_remit_status">
+        <argument
+            android:name="status"
+            app:argType="string" />
+        <argument
+            android:name="data"
+            app:argType="string" />
+    </fragment>
+</navigation>

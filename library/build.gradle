@@ -1,0 +1,75 @@
+apply plugin: 'com.android.library'
+
+def majorVersion = 0
+def minorVersion = 0
+def incrementalVersion = 5
+def revisionNumber = 0
+
+def pkgName = "upay-felmo-lib"
+def pkgExt = "aar"
+def pkgFileName = "${pkgName}-" +
+        "${majorVersion}.${minorVersion}." +
+        "${incrementalVersion}.${revisionNumber}.${pkgExt}"
+
+@SuppressWarnings("GrMethodMayBeStatic")
+def renameArtifact(variant, fileName) {
+
+    variant.outputs.each { output ->
+
+        // if Release build
+        if (variant.name == android.buildTypes.release.name) {
+            output.outputFileName = fileName
+        }
+    }
+}
+
+@SuppressWarnings("GrMethodMayBeStatic")
+def getAppVersion(major, minor, incremental, revision, asString) {
+    if (asString == true) {
+        return major + "." + minor + "." + incremental + "." + revision
+    }
+
+    major *= 1000000
+    minor *= 10000
+    incremental *= 100
+    revision *= 1
+    return major + minor + incremental + revision
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode getAppVersion(majorVersion, minorVersion, incrementalVersion, revisionNumber, false)
+        versionName getAppVersion(majorVersion, minorVersion, incrementalVersion, revisionNumber, true)
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    libraryVariants.all { variant ->
+        renameArtifact(variant, pkgFileName)
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
+}
