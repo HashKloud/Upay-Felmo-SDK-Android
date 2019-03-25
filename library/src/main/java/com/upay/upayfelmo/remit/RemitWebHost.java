@@ -152,6 +152,8 @@ public class RemitWebHost implements AdvancedWebView.Listener
 		settings.setDomStorageEnabled(true);
 		settings.setSupportMultipleWindows(true);
 		settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+		activity.deleteDatabase("webview.db");
+		activity.deleteDatabase("webviewCache.db");
 
 		mainWebView.addJavascriptInterface(
 			new WebViewJavaScriptInterface(activity, mainListener, fpxWebHost), MESSAGE_HANDLER);
