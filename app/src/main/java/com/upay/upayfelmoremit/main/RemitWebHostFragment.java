@@ -27,8 +27,7 @@ import im.delight.android.webview.AdvancedWebView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RemitWebHostFragment extends BaseFragment
-	implements RemitWebHost.Listener
+public class RemitWebHostFragment extends BaseFragment implements RemitWebHost.Listener
 {
 	private AdvancedWebView webView;
 	private ProgressBar progressBar;

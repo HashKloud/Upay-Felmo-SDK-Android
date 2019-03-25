@@ -27,8 +27,7 @@ import androidx.fragment.app.FragmentTransaction;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FpxWebHostDialogFragment extends BaseDialogFragment
-	implements FpxWebHost.Listener
+public class FpxWebHostDialogFragment extends BaseDialogFragment implements FpxWebHost.Listener
 {
 	private static final String FRAGMENT_TAG = "dialog_fragment_fpx";
 

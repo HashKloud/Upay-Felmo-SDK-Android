@@ -56,7 +56,8 @@ public class FpxWebHost
 	 * @param parentWebView Parent web view.
 	 * @param listener Parent listener.
 	 */
-	/*package*/ FpxWebHost(WebView parentWebView, RemitWebHost.Listener listener)
+	/*package*/
+	FpxWebHost(WebView parentWebView, RemitWebHost.Listener listener)
 	{
 		this.parentWebView = parentWebView;
 		this.parentListener = listener;
