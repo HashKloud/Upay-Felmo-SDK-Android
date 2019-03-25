@@ -1,6 +1,5 @@
-# UpayLib-Android
+# UpayFelmoRemit-Android
 
-Online merchant & Upay on delivery integration documentation.
 
 
 
@@ -38,7 +37,7 @@ Remember to add below  permission in `Manifest.xml file` .
  ###  Step 3. For requesting UPay purchase use below code:
 
  ```java
-    	RemitUserAuthenticator userAuthenticator = new RemitUserAuthenticator(this, true);
+    RemitUserAuthenticator userAuthenticator = new RemitUserAuthenticator(this, true);
 	userAuthenticator.authenticate(new UserAuth(SIGNATURE,CLIENT_KEY, COUNTRY_CODE));
  ```
 **Details**
