@@ -23,7 +23,7 @@
 - Add the dependency to your app level `build.gradle` file.
 ```java
 	dependencies {
-	        implementation 'com.github.HashKloud:Upay-Felmo-SDK-Android:V-1.0.0'
+	   implementation 'com.github.HashKloud:Upay-Felmo-SDK-Android:V1.0.1'
 	}
  ```
 
