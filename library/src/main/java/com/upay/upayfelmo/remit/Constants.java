@@ -4,7 +4,7 @@ package com.upay.upayfelmo.remit;
 public final class Constants
 {
 	public static final String PRODUCTION_URL = "https://upayfelmo.hashkloud.com";
-	public static final String UAT_URL = "https://upayfelmo.hashkloud.com";
+	public static final String UAT_URL = "https://felmo.hashkloud.com";
 	public static final String KEY_SIGNATURE = "signature";
 	public static final String KEY_CLIENT = "client";
 	public static final String KEY_LANGUAGE = "language";
